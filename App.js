@@ -15,6 +15,7 @@ import {
   View
 } from 'react-native';
 import WelcomeScreen from './src/Components/WelcomePage';
+import QuizPage from './src/Components/QuizPage';
 
 const instructions = Platform.select({
   ios: 'PANMOLLLLL,\n' +
@@ -38,12 +39,21 @@ export default class App extends Component<Props> {
         username: newUserName
       });
     }
+
+    const changeScreen = (screenNumber)=>{
+      this.setState({
+        showScreen: screenNumber
+      });
+    }
     if(this.state.showScreen === 1){
       return (
         <View style={styles.container}>
-          <WelcomeScreen changeUsername={changeUsername} username={this.state.username}/>
+          <WelcomeScreen changeScreen={changeScreen} changeUsername={changeUsername} username={this.state.username}/>
         </View>
-    } else if(this.state.showScreen === 2)
+      );
+    } else if(this.state.showScreen === 2){
+      return (<View style={styles.container}><QuizPage username={this.state.username}/></View>);
+    }
       // <View style={styles.container}>
       //   <Text style={styles.welcome}>
       //   Hello Everyone !
@@ -52,7 +62,6 @@ export default class App extends Component<Props> {
       //     I am Anmol.
       //   </Text>
       // </View>
-    );
   }
 }
 

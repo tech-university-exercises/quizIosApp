@@ -46,7 +46,10 @@ export default class WelcomePage extends Component<Props> {
               <Text style={styles.loginFieldLabel}>Username</Text>
               <TextInput
                 style={styles.loginField}
-                onChangeText={(username) => this.props.changeUsername(username)}
+                onChangeText={(username) => {
+                  console.log(username);
+                  this.props.changeUsername(username)
+                }}
                 value={this.props.username}
               />
               <Button
