@@ -14,7 +14,6 @@ import {
   TextInput,
   View
 } from 'react-native';
-import WelcomeScreen from './src/Components/WelcomePage';
 
 const instructions = Platform.select({
   ios: 'PANMOLLLLL,\n' +
@@ -24,42 +23,57 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class WelcomePage extends Component<Props> {
   constructor(){
     super();
     this.state={
-      username: '',
-      showScreen: 1
+      username: ''
     }
   }
   render() {
-    const changeUsername = (newUserName)=>{
-      this.setState({
-        username: newUserName
-      });
-    }
-    if(this.state.showScreen === 1){
-      return (
+    return (
         <View style={styles.container}>
-          <WelcomeScreen changeUsername={changeUsername} username={this.state.username}/>
+          <View style={styles.welcomeBox}>
+            <View style={styles.groupText}>
+            <Text style={styles.welcomeMessage}>Welcome</Text>
+            <Text style={styles.welcomeMessage}>to</Text>
+            <Text style={styles.appName}>Quizzy!</Text>
+            </View>
+          </View>
+          <View style={styles.loginBox}>
+            <View style={styles.loginForm}>
+              <Text style={styles.loginTitle}>Login</Text>
+              <Text style={styles.loginFieldLabel}>Username</Text>
+              <TextInput
+                style={styles.loginField}
+                onChangeText={(username) => this.props.changeUsername(username)}
+                value={this.props.username}
+              />
+              <Button
+                style={styles.loginButton}
+                onPress={()=>{
+                  this.props.changeScreen(2);
+                }}
+                title="Login"
+                color='rgb(24, 34, 76)'
+                accessibilityLabel="Learn more about this purple button"
+              />
+            </View>
+          </View>
         </View>
-    } else if(this.state.showScreen === 2)
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>
-      //   Hello Everyone !
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     I am Anmol.
-      //   </Text>
-      // </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 15
+  container:{
+    flex: 1
+  },
+  loginButton:{
+    borderColor: 'rgb(0,0,0)',
+    marginTop:100,
+    borderWidth: 10,
+    borderRadius: 30
   },
   groupText:{
     margin: '25%',
