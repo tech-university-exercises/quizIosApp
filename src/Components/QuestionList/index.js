@@ -69,7 +69,7 @@ export default class QuestionList extends Component {
     const withOutRadioButton = (eachEntry) => {
       const optionlist = [];
       for (const option in eachEntry.options) {
-        // console.log(option, eachEntry.options[option]);
+        console.log(option, eachEntry.options[option]);
         optionlist.push(<Text>{option} {eachEntry.options[option]}</Text>);
       }
       return optionlist;
