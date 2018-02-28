@@ -46,7 +46,7 @@ export default class QuizApp extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hello {this.props.username}</Text>
+        <Text style={styles.Hello}>Hello {this.props.username}</Text>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <QuestionList
             username={this.state.username}
@@ -91,6 +91,10 @@ export default class QuizApp extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  Hello: {
+    fontSize: 25,
+    marginLeft: 10,
   },
   contentContainer: {
     paddingVertical: 20,
