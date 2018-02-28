@@ -4,7 +4,7 @@
  * @flow
  */
 import React, { Component } from 'react';
-
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import {
   Platform,
   StyleSheet,
@@ -32,27 +32,55 @@ export default class QuestionList extends Component {
 
   render() {
     const populateOptions = (eachQuestion) => {
-  const optionsDivArray = [];
-  for (const option in eachQuestion.options) {
-    // console.log(props.question.options[option]);
-    optionsDivArray.push(<div className="EachQuestion-radio">
-      <input
-        type="radio"
-        checked={props.wasChecked === props.question.options[option]}
-        onChange={(event) => { optionSelectionMade(event, props); }}
-        name={props.question.questionId}
-        value={props.question.options[option]}
-      /> {props.question.options[option]}
-                         </div>);
-  }
-
+      const radio_props = [];
+      for (const option in eachQuestion.options) {
+        radio_props.push({
+          label: option, value: eachQuestion.options.option,
+        });
+      }
+      const RadioButtonProject = React.createClass({
+        getInitialState() {
+          return {
+            value: 0,
+          };
+        },
+        render() {
+          return (
+            <View>
+              <RadioForm
+                radio_props={radio_props}
+                initial={0}
+                onPress={(value) => { this.setState({ value }); }}
+              />
+            </View>
+          );
+        },
+      });
+    };
+    // <div className="EachQuestion-radio">
+    //   <input
+    //     type="radio"
+    //     checked={props.wasChecked === props.question.options[option]}
+    //     onChange={(event) => { optionSelectionMade(event, props); }}
+    //     name={props.question.questionId}
+    //     value={props.question.options[option]}
+    //   /> {props.question.options[option]}
+    //                      </div>
+    const withOutRadioButton = (eachEntry) => {
+      const optionlist = [];
+      for (const option in eachEntry.options) {
+        // console.log(option, eachEntry.options[option]);
+        optionlist.push(<Text>{option} {eachEntry.options[option]}</Text>);
+      }
+      return optionlist;
+    };
     const populateList = () => {
       const newList = this.props.allQuestionsArray.map((eachEntry, index) => (
         <View style={styles.contentContainer}>
           <Text style={styles.UserHeader}>Question {index + 1}</Text>
           <View style={styles.quizQuestion}><Text>{eachEntry.question}</Text></View>
           <View style={styles.multipleOptions}>
-            {populateOptions(eachEntry)}
+            {withOutRadioButton(eachEntry)}
           </View>
         </View>));
       return newList;
